@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 class Group
 {
     private int $id, $fixed_discount, $variable_discount;
-    private $group;
+    private ?Group $group;
     private string $name;
 
     /**

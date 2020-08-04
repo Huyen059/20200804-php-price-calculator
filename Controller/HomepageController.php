@@ -7,26 +7,26 @@ error_reporting(E_ALL);
 
 class HomepageController
 {
-    public function render(array $GET, array $POST)
+    public function render(): void
     {
         /**
          * @var Product[]
          */
         $products = getAllProductInfo();
+        /**
+         * @var Customer[]
+         */
         $customers = getAllCustomerInfo();
 
         $message = '';
-        if(isset($_POST['productId']) && isset($_POST['customerId'])){
-            /**
-             * @var Customer $customer
-             */
-            $customer = getCustomerInfo((int)$_POST['customerId']);
-            $finalPrice = $customer->calculatePrice(getProductInfo((int)$_POST['productId']));
+        if(isset($_POST['productId'], $_POST['customerId'])){
+            $customer = $customers[(int)$_POST['customerId']];
+            $finalPrice = $customer->calculatePrice($products[(int)$_POST['productId']]);
         }
 
         if (isset($finalPrice)) {
-            $finalPrice = number_format($finalPrice, 2);
-            $message = "<h5>Your price: &euro;{$finalPrice}</h5>";
+            $finalPriceToBeDisplay = number_format($finalPrice, 2);
+            $message = "<h5>Your price: &euro;{$finalPriceToBeDisplay}</h5>";
         }
 
         require 'View/homepage.php';

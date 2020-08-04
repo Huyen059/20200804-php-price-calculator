@@ -10,7 +10,7 @@ Anything complex should be calculated in the model -->
                 /**
                  * @var Product[] $products
                  */
-                foreach ($products as $product) {
+                foreach ($products as $productId => $product) {
                     $name = ucwords($product->getName());
                     $price = $product->getPrice() / 100;
                     $selected = '';
@@ -21,7 +21,7 @@ Anything complex should be calculated in the model -->
                         }
                     }
                     echo "
-                <option value='{$product->getId()}' {$selected}>{$name} | &euro;{$price}</option>
+                <option value='{$productId}' {$selected}>{$name} | &euro;{$price}</option>
                 ";
                 }
                 ?>
@@ -32,7 +32,7 @@ Anything complex should be calculated in the model -->
                 /**
                  * @var Customer[] $customers
                  */
-                foreach ($customers as $customer) {
+                foreach ($customers as $customerId => $customer) {
                     $name = ucwords($customer->getFirstName() . " " . $customer->getLastName());
                     $selected = '';
                     if (isset($_POST['customerId'])) {
@@ -42,7 +42,7 @@ Anything complex should be calculated in the model -->
                         }
                     }
                     echo "
-                <option value='{$customer->getId()}' {$selected}>{$name}</option>
+                <option value='{$customerId}' {$selected}>{$name}</option>
                 ";
                 }
                 ?>

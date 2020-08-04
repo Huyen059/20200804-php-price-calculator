@@ -38,22 +38,6 @@ class Customer
     }
 
     /**
-     * @return int
-     */
-    public function getFixedDiscount(): int
-    {
-        return $this->fixed_discount;
-    }
-
-    /**
-     * @return int
-     */
-    public function getVariableDiscount(): int
-    {
-        return $this->variable_discount;
-    }
-
-    /**
      * @return string
      */
     public function getFirstName(): string
@@ -69,19 +53,9 @@ class Customer
         return $this->lastName;
     }
 
-    /**
-     * @return Group
-     */
-    public function getGroup(): Group
-    {
-        return $this->group;
-    }
-
     public function getMaxVariableDiscount(): int
     {
-        //Originally
         $max = $this->variable_discount;
-        // Check if the group belongs to another group
         $group = $this->group;
         while($group->getGroup() !== null) {
             $max = ($max < $group->getGroup()->getVariableDiscount()) ? $group->getGroup()->getVariableDiscount() : $max;
@@ -92,9 +66,7 @@ class Customer
 
     public function getMaxFixedDiscount(): int
     {
-        //Originally
         $max = $this->fixed_discount;
-        // Check if the group belongs to another group
         $group = $this->group;
         while($group->getGroup() !== null) {
             $max = ($max < $group->getGroup()->getFixedDiscount()) ? $group->getGroup()->getFixedDiscount() : $max;
@@ -110,28 +82,8 @@ class Customer
         $different = ($product->getPrice())/100 - $maxFixedDiscount;
         $price = ($different > 0) ? $different : 0;
         if($price !== 0) {
-            $price = $price*(1 - $maxFixedDiscount/100);
+            $price *= (1 - $maxFixedDiscount / 100);
         }
         return $price;
     }
-//
-//    /**
-//     * @param array $groups
-//     * @return Group
-//     */
-//    public function getGroup(array $groups): Group
-//    {
-//
-//    }
-//
-//    /**
-//     * @param Group[] $groups
-//     * @return int
-//     */
-//    public function getFinalVariableDiscount(array $groups): int
-//    {
-//        $customerVariableDiscount = $this->getVariableDiscount();
-//
-//
-//    }
 }

@@ -19,4 +19,4 @@ require 'Controller/HomepageController.php';
 
 $controller = new HomepageController();
 
-$controller->render($_GET, $_POST);
+$controller->render();

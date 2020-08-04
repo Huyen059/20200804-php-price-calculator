@@ -23,35 +23,6 @@ function openConnection(): PDO
 
 /**
  * @param int $id
- * @return Product
- */
-function getProductInfo(int $id): Product
-{
-    $pdo = openConnection();
-    $handle = $pdo->prepare('SELECT * FROM product WHERE id = :id');
-    $handle->bindValue('id', $id);
-    $handle->execute();
-    $item = $handle->fetch();
-    return new Product((int)$item['id'], $item['name'], (int)$item['price']);
-}
-
-/**
- * @param int $id
- * @return Customer
- */
-function getCustomerInfo(int $id): Customer
-{
-    $pdo = openConnection();
-    $handle = $pdo->prepare('SELECT * FROM customer WHERE id = :id');
-    $handle->bindValue('id', $id);
-    $handle->execute();
-    $customer = $handle->fetch();
-    $group = getGroupInfo((int)$customer['group_id']);
-    return new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], $group, (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
-}
-
-/**
- * @param int $id
  * @return Group
  */
 function getGroupInfo(int $id): Group
@@ -75,7 +46,7 @@ function getAllProductInfo(): array
     $array = $handle->fetchAll();
     $products = [];
     foreach ($array as $item) {
-        $products[] = getProductInfo((int)$item['id']);
+        $products[$item['id']] = new Product((int)$item['id'], $item['name'], (int)$item['price']);
     }
     return $products;
 }
@@ -91,7 +62,8 @@ function getAllCustomerInfo(): array
     $array = $handle->fetchAll();
     $customers = [];
     foreach ($array as $customer) {
-        $customers[] = getCustomerInfo((int)$customer['id']);
+        $group = getGroupInfo((int)$customer['group_id']);
+        $customers[$customer['id']] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], $group, (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
     }
     return $customers;
 }
