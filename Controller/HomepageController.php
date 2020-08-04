@@ -14,23 +14,21 @@ class HomepageController
          */
         $products = getAllProductInfo();
         $customers = getAllCustomerInfo();
-//        /**
-//         * @var Customer $test
-//         */
-//        $test = $customers[9];
-//
-//        $maxVarDis = $test->getMaxVariableDiscount();
-//        $maxFixDis = $test->getMaxFixedDiscount();
-//        $price = $test->calculatePrice($products[0]);
+
+        $message = '';
         if(isset($_POST['productId']) && isset($_POST['customerId'])){
-            $productId = htmlspecialchars(trim($_POST['productId']));
-            $customerId = htmlspecialchars(trim($_POST['customerId']));
             /**
              * @var Customer $customer
              */
-            $customer = $customers[$customerId-1];
-            $price = $customer->calculatePrice($products[$productId-1]);
+            $customer = getCustomerInfo((int)$_POST['customerId']);
+            $finalPrice = $customer->calculatePrice(getProductInfo((int)$_POST['productId']));
         }
+
+        if (isset($finalPrice)) {
+            $finalPrice = number_format($finalPrice, 2);
+            $message = "<h5>Your price: &euro;{$finalPrice}</h5>";
+        }
+
         require 'View/homepage.php';
     }
 }
