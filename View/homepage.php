@@ -10,8 +10,7 @@ Anything complex should be calculated in the model -->
         /**
          * @var array $products
          */
-        foreach ($products as $product){
-        }
+
 
 
         ?>

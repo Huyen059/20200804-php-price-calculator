@@ -25,9 +25,14 @@ function getAllProductInfo(): array
 {
     $pdo = openConnection();
     // Getting product price and name to be displayed in the view
-    $handle = $pdo->prepare('SELECT name, price FROM product');
+    $handle = $pdo->prepare('SELECT id, name, price FROM product');
     $handle->execute();
-    return $handle->fetchAll();
+    $array = $handle->fetchAll();
+    $products = [];
+    foreach ($array as $item) {
+        $products[] = new Product((int)$item['id'], $item['name'], (int)$item['price']);
+    }
+    return $products;
 }
 
 
