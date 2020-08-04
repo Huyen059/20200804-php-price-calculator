@@ -58,7 +58,8 @@ class Customer
         $max = $this->variable_discount;
         $group = $this->group;
         while($group->getGroup() !== null) {
-            $max = ($max < $group->getGroup()->getVariableDiscount()) ? $group->getGroup()->getVariableDiscount() : $max;
+            $variableDiscountOfGroup = $group->getGroup()->getVariableDiscount();
+            $max = ($max < $variableDiscountOfGroup) ? $variableDiscountOfGroup : $max;
             $group = $group->getGroup();
         }
         return $max;
@@ -69,7 +70,8 @@ class Customer
         $max = $this->fixed_discount;
         $group = $this->group;
         while($group->getGroup() !== null) {
-            $max = ($max < $group->getGroup()->getFixedDiscount()) ? $group->getGroup()->getFixedDiscount() : $max;
+            $fixedDiscountOfGroup = $group->getGroup()->getFixedDiscount();
+            $max = ($max < $fixedDiscountOfGroup) ? $fixedDiscountOfGroup : $max;
             $group = $group->getGroup();
         }
         return $max;
