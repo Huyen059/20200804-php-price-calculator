@@ -1,7 +1,7 @@
 <?php require 'includes/header.php' ?>
 <!-- this is the view, try to put only simple if's and loops here.
 Anything complex should be calculated in the model -->
-<section>
+<section class="container">
     <form method="post">
         <div class="input-group mb-3">
             <select name="productId" class="custom-select">
@@ -48,11 +48,11 @@ Anything complex should be calculated in the model -->
                 ?>
             </select>
             <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                <button class="btn btn-success" type="submit">Submit</button>
             </div>
         </div>
     </form>
-    <div><?php
+    <div class="py-4"><?php
             /**
              * @var string $message;
              */

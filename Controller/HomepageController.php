@@ -26,7 +26,7 @@ class HomepageController
 
         if (isset($finalPrice)) {
             $finalPriceToBeDisplay = number_format($finalPrice, 2);
-            $message = "<h5>Your price: &euro;{$finalPriceToBeDisplay}</h5>";
+            $message = "<h5 class='text-center bg-danger text-white p-3 font-weight-bold'>Your price: &euro;{$finalPriceToBeDisplay}</h5>";
         }
 
         require 'View/homepage.php';
