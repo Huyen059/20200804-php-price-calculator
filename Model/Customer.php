@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 class Customer
 {
-    private int $id, $group_id, $fix_discount, $variable_discount;
+    private int $id, $group_id, $fixed_discount, $variable_discount;
     private string $firstName, $lastName;
     /**
      * @var Product[]
