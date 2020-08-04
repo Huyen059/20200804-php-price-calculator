@@ -5,7 +5,7 @@ ini_set('display_errors', "1");
 ini_set('display_startup_errors', "1");
 error_reporting(E_ALL);
 
-class HomepageController
+class PriceCalculatorController
 {
     public function render(): void
     {
@@ -29,6 +29,6 @@ class HomepageController
             $message = "<h5 class='text-center bg-danger text-white p-3 font-weight-bold'>Your price: &euro;{$finalPriceToBeDisplay}</h5>";
         }
 
-        require 'View/homepage.php';
+        require 'View/price_calculator.php';
     }
 }
