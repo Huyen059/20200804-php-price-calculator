@@ -32,5 +32,34 @@ Anything complex should be calculated in the model -->
     </div>
 
 </form>
+<form method="post">
+        <div class="input-group mb-3">
+            <select name="customerId" class="custom-select" >
+                <option selected disabled value="">Choose a customer</option>
+                <?php
+                /**
+                 * @var Customer[] $customers
+                 */
+                foreach ($customers as $customer) {
+                    $name = ucwords($customer->getFirstName() . " " . $customer->getLastName());
+                    $selected = '';
+                    if(isset($_POST['customerId'])) {
+                        $id = (int)htmlspecialchars(trim($_POST['customerId']));
+                        if($customer->getId() === $id) {
+                            $selected = 'selected';
+                        }
+                    }
+                    echo "
+                <option value='{$customer->getId()}' {$selected}>{$name}</option>
+                ";
+                }
+                ?>
+            </select>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Submit</button>
+            </div>
+        </div>
+
+    </form>
 </section>
 <?php require 'includes/footer.php'?>

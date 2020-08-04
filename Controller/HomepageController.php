@@ -13,6 +13,7 @@ class HomepageController
          * @var Product[]
          */
         $products = getAllProductInfo();
+        $customers = getAllCustomerInfo();
 
         require 'View/homepage.php';
     }

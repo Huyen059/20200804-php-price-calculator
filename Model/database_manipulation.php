@@ -25,7 +25,7 @@ function getAllProductInfo(): array
 {
     $pdo = openConnection();
     // Getting product price and name to be displayed in the view
-    $handle = $pdo->prepare('SELECT id, name, price FROM product');
+    $handle = $pdo->prepare('SELECT * FROM product');
     $handle->execute();
     $array = $handle->fetchAll();
     $products = [];
@@ -35,6 +35,18 @@ function getAllProductInfo(): array
     return $products;
 }
 
-
+function getAllCustomerInfo(): array
+{
+    $pdo = openConnection();
+    // Getting product price and name to be displayed in the view
+    $handle = $pdo->prepare('SELECT * FROM customer');
+    $handle->execute();
+    $array = $handle->fetchAll();
+    $customers = [];
+    foreach ($array as $customer) {
+        $customers[] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], (int)$customer['group_id'], (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
+    }
+    return $customers;
+}
 
 
