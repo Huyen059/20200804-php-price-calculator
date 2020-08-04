@@ -84,7 +84,7 @@ class Customer
         $different = ($product->getPrice())/100 - $maxFixedDiscount;
         $price = ($different > 0) ? $different : 0;
         if($price !== 0) {
-            $price *= (1 - $maxFixedDiscount / 100);
+            $price *= (1 - $maxVariableDiscount / 100);
         }
         return $price;
     }
