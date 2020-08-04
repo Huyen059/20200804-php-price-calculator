@@ -7,27 +7,24 @@ error_reporting(E_ALL);
 
 class Customer
 {
-    private int $id, $group_id, $fixed_discount, $variable_discount;
+    private Group $group;
     private string $firstName, $lastName;
-    /**
-     * @var Product[]
-     */
-    private array $products;
 
     /**
      * Customer constructor.
      * @param int $id
      * @param string $firstName
-     * @param string $lastName     * @param int $group_id
+     * @param string $lastName
+     * @param Group $group
      * @param int $fixed_discount
      * @param int $variable_discount
      */
-    public function __construct(int $id, string $firstName, string $lastName, int $group_id, int $fixed_discount, int $variable_discount)
+    public function __construct(int $id, string $firstName, string $lastName, Group $group, int $fixed_discount, int $variable_discount)
     {
         $this->id = $id;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
-        $this->group_id = $group_id;
+        $this->group = $group;
         $this->fixed_discount = $fixed_discount;
         $this->variable_discount = $variable_discount;
     }
@@ -38,14 +35,6 @@ class Customer
     public function getId(): int
     {
         return $this->id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getGroupId(): int
-    {
-        return $this->group_id;
     }
 
     /**
@@ -79,13 +68,24 @@ class Customer
     {
         return $this->lastName;
     }
-
-    /**
-     * @return Product[]
-     */
-    public function getProducts(): array
-    {
-        return $this->products;
-    }
-
+//
+//    /**
+//     * @param array $groups
+//     * @return Group
+//     */
+//    public function getGroup(array $groups): Group
+//    {
+//
+//    }
+//
+//    /**
+//     * @param Group[] $groups
+//     * @return int
+//     */
+//    public function getFinalVariableDiscount(array $groups): int
+//    {
+//        $customerVariableDiscount = $this->getVariableDiscount();
+//
+//
+//    }
 }

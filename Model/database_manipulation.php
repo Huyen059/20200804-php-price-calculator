@@ -44,9 +44,24 @@ function getAllCustomerInfo(): array
     $array = $handle->fetchAll();
     $customers = [];
     foreach ($array as $customer) {
-        $customers[] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], (int)$customer['group_id'], (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
+        $group = getGroupInfo((int)$customer['group_id']);
+        $customers[] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], $group, (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
     }
     return $customers;
+}
+
+/**
+ * @param int $id
+ * @return Group
+ */
+function getGroupInfo(int $id): Group
+{
+    $pdo = openConnection();
+    $handle = $pdo->prepare('SELECT * FROM customer_group WHERE id = :id');
+    $handle->bindValue('id', $id);
+    $handle->execute();
+    $group = $handle->fetch();
+    return new Group((int)$group['id'], (int)$group['parent_id'], (int)$group['fixed_discount'], (int)$group['variable_discount'], (string)$group['name']);
 }
 
 
