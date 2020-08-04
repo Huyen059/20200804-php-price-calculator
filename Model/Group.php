@@ -28,5 +28,28 @@ class Group
         $this->name = $name;
     }
 
+    /**
+     * @return Group|null
+     */
+    public function getGroup(): ?Group
+    {
+        return $this->group;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVariableDiscount(): int
+    {
+        return $this->variable_discount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFixedDiscount(): int
+    {
+        return $this->fixed_discount;
+    }
 
 }

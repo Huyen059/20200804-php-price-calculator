@@ -68,6 +68,52 @@ class Customer
     {
         return $this->lastName;
     }
+
+    /**
+     * @return Group
+     */
+    public function getGroup(): Group
+    {
+        return $this->group;
+    }
+
+    public function getMaxVariableDiscount(): int
+    {
+        //Originally
+        $max = $this->variable_discount;
+        // Check if the group belongs to another group
+        $group = $this->group;
+        while($group->getGroup() !== null) {
+            $max = ($max < $group->getGroup()->getVariableDiscount()) ? $group->getGroup()->getVariableDiscount() : $max;
+            $group = $group->getGroup();
+        }
+        return $max;
+    }
+
+    public function getMaxFixedDiscount(): int
+    {
+        //Originally
+        $max = $this->fixed_discount;
+        // Check if the group belongs to another group
+        $group = $this->group;
+        while($group->getGroup() !== null) {
+            $max = ($max < $group->getGroup()->getFixedDiscount()) ? $group->getGroup()->getFixedDiscount() : $max;
+            $group = $group->getGroup();
+        }
+        return $max;
+    }
+
+    public function calculatePrice(Product $product): float
+    {
+        $maxVariableDiscount = $this->getMaxVariableDiscount();
+        $maxFixedDiscount = $this->getMaxFixedDiscount();
+        $different = ($product->getPrice())/100 - $maxFixedDiscount;
+        $price = ($different > 0) ? $different : 0;
+        if($price !== 0) {
+            $price = $price*(1 - $maxFixedDiscount/100);
+        }
+        return $price;
+    }
 //
 //    /**
 //     * @param array $groups
