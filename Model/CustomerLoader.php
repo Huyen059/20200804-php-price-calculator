@@ -13,7 +13,7 @@ class CustomerLoader extends DataLoader
     private array $customers;
 
     /**
-     * @return Customer[]
+     * CustomerLoader constructor.
      */
     public function __construct()
     {

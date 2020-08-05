@@ -17,8 +17,8 @@ class ProductLoader extends DataLoader
         $handle = $pdo->prepare('SELECT * FROM product');
         $handle->execute();
         $products = $handle->fetchAll();
-        foreach ($products as $item) {
-            $this->products[$item['id']] = new Product((int)$item['id'], $item['name'], (int)$item['price']);
+        foreach ($products as $product) {
+            $this->products[$product['id']] = new Product((int)$product['id'], $product['name'], (int)$product['price']);
         }
     }
 
