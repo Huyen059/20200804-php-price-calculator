@@ -35,38 +35,38 @@ function getGroupInfo(int $id): Group
     return new Group((int)$group['id'], (int)$group['parent_id'], (int)$group['fixed_discount'], (int)$group['variable_discount'], (string)$group['name']);
 }
 
-/**
- * @return Product[]
- */
-function getAllProductInfo(): array
-{
-    $pdo = openConnection();
-    $handle = $pdo->prepare('SELECT * FROM product');
-    $handle->execute();
-    $array = $handle->fetchAll();
-    $products = [];
-    foreach ($array as $item) {
-        $products[$item['id']] = new Product((int)$item['id'], $item['name'], (int)$item['price']);
-    }
-    return $products;
-}
+///**
+// * @return Product[]
+// */
+//function getAllProductInfo(): array
+//{
+//    $pdo = openConnection();
+//    $handle = $pdo->prepare('SELECT * FROM product');
+//    $handle->execute();
+//    $array = $handle->fetchAll();
+//    $products = [];
+//    foreach ($array as $item) {
+//        $products[$item['id']] = new Product((int)$item['id'], $item['name'], (int)$item['price']);
+//    }
+//    return $products;
+//}
 
-/**
- * @return Customer[]
- */
-function getAllCustomerInfo(): array
-{
-    $pdo = openConnection();
-    $handle = $pdo->prepare('SELECT * FROM customer');
-    $handle->execute();
-    $array = $handle->fetchAll();
-    $customers = [];
-    foreach ($array as $customer) {
-        $group = getGroupInfo((int)$customer['group_id']);
-        $customers[$customer['id']] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], $group, (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
-    }
-    return $customers;
-}
+///**
+// * @return Customer[]
+// */
+//function getAllCustomerInfo(): array
+//{
+//    $pdo = openConnection();
+//    $handle = $pdo->prepare('SELECT * FROM customer');
+//    $handle->execute();
+//    $array = $handle->fetchAll();
+//    $customers = [];
+//    foreach ($array as $customer) {
+//        $group = getGroupInfo((int)$customer['group_id']);
+//        $customers[$customer['id']] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], $group, (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
+//    }
+//    return $customers;
+//}
 
 
 

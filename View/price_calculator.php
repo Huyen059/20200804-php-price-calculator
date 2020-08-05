@@ -12,7 +12,7 @@ Anything complex should be calculated in the model -->
                  */
                 foreach ($products as $productId => $product) {
                     $name = ucwords($product->getName());
-                    $price = $product->getPrice() / 100;
+                    $price = number_format($product->getPrice() / 100, 2);
                     $selected = '';
                     if (isset($_POST['productId'])) {
                         $id = (int)htmlspecialchars(trim($_POST['productId']));

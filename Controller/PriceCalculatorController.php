@@ -12,16 +12,18 @@ class PriceCalculatorController
         /**
          * @var Product[]
          */
-        $products = getAllProductInfo();
+        $productsLoader = new ProductLoader();
+        $products = $productsLoader->getProducts();
         /**
          * @var Customer[]
          */
-        $customers = getAllCustomerInfo();
+        $customersLoader = new CustomerLoader();
+        $customers = $customersLoader->getCustomers();
 
         $message = '';
         if(isset($_POST['productId'], $_POST['customerId'])){
             $customer = $customers[(int)$_POST['customerId']];
-            $finalPrice = $customer->calculatePrice($products[(int)$_POST['productId']]);
+            $finalPrice = $customer->calculatePrice($products[(int)$_POST['productId']])/100;
         }
 
         if (isset($finalPrice)) {

@@ -53,10 +53,11 @@ class Customer
         return $this->lastName;
     }
 
-    public function getMaxVariableDiscount(): int
+    public function getMaxVariableDiscountOfGroups(): int
     {
-        $max = $this->variable_discount;
+
         $group = $this->group;
+        $max = $group->getVariableDiscount();
         while($group->getGroup() !== null) {
             $variableDiscountOfGroup = $group->getGroup()->getVariableDiscount();
             $max = ($max < $variableDiscountOfGroup) ? $variableDiscountOfGroup : $max;
@@ -65,27 +66,41 @@ class Customer
         return $max;
     }
 
-    public function getMaxFixedDiscount(): int
+    public function getFixedDiscountOfGroups(): int
     {
-        $max = $this->fixed_discount;
+
         $group = $this->group;
+        $sum = $group->getFixedDiscount();
         while($group->getGroup() !== null) {
             $fixedDiscountOfGroup = $group->getGroup()->getFixedDiscount();
-            $max = ($max < $fixedDiscountOfGroup) ? $fixedDiscountOfGroup : $max;
+            $sum += $fixedDiscountOfGroup;
             $group = $group->getGroup();
         }
-        return $max;
+        return $sum;
     }
 
+    /**
+     * @param Product $product
+     * @return float
+     */
     public function calculatePrice(Product $product): float
     {
-        $maxVariableDiscount = $this->getMaxVariableDiscount();
-        $maxFixedDiscount = $this->getMaxFixedDiscount();
-        $different = ($product->getPrice())/100 - $maxFixedDiscount;
-        $price = ($different > 0) ? $different : 0;
-        if($price !== 0) {
-            $price *= (1 - $maxVariableDiscount / 100);
+
+        $productOriginalPrice = $product->getPrice();
+        //Getting the two discounts from the groups, compare to see which one is better
+        $maxVariableDiscountOfGroups = $this->getMaxVariableDiscountOfGroups();
+        $sumFixedDiscountOfGroups = $this->getFixedDiscountOfGroups();
+        $groupFixedDiscount = $groupVariableDiscount = 0;
+        if($productOriginalPrice*$maxVariableDiscountOfGroups*0.01 < $sumFixedDiscountOfGroups) {
+            $groupFixedDiscount = $sumFixedDiscountOfGroups;
+        } else {
+            $groupVariableDiscount = $maxVariableDiscountOfGroups;
         }
+
+        //Finally combine with the customer discount
+        //In any case, one of the two $groupFixedDiscount or $groupVariableDiscount will be 0.
+        $price = $productOriginalPrice - $groupFixedDiscount - $this->fixed_discount;
+        $price *= 1 - max($this->variable_discount, $groupVariableDiscount)*0.01;
         return $price;
     }
 }

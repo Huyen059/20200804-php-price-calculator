@@ -21,6 +21,8 @@ class Group
      */
     public function __construct(int $id, int $parent_id, int $fixed_discount, int $variable_discount, string $name)
     {
+//        $groups = new GroupLoader();
+//        $this->group = ($parent_id !== 0) ? $groups[$parent_id] : null;
         $this->id = $id;
         $this->group = ($parent_id !== 0) ? getGroupInfo($parent_id) : null;
         $this->fixed_discount = $fixed_discount;

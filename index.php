@@ -7,9 +7,13 @@ error_reporting(E_ALL);
 
 //include all your model files here
 require 'credentials/database.php';
+require 'Model/DataLoader.php';
 require 'Model/Product.php';
+require 'Model/ProductLoader.php';
 require 'Model/Customer.php';
+require 'Model/CustomerLoader.php';
 require 'Model/Group.php';
+require 'Model/GroupLoader.php';
 require 'Model/database_manipulation.php';
 //include all your controllers here
 require 'Controller/PriceCalculatorController.php';
