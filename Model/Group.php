@@ -26,7 +26,7 @@ class Group
 //        $this->group = ($parent_id !== 0) ? $groups[$parent_id] : null;
         $this->id = $id;
         $this->group = ($parent_id !== 0) ? getGroupInfo($parent_id) : null;
-        $this->fixed_discount = $fixed_discount;
+        $this->fixed_discount = $fixed_discount * 100;
         $this->variable_discount = $variable_discount;
         $this->name = $name;
     }
