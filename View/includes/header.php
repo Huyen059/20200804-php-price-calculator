@@ -10,5 +10,5 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 <header>
-    <h1 class="text-center my-5">Price calculator</h1>
+    <h1 class="text-center my-5">Webshop</h1>
 </header>

@@ -9,6 +9,8 @@ class Customer
 {
     private Group $group;
     private string $firstName, $lastName;
+    private int $fixed_discount;
+    private int $variable_discount;
 
     /**
      * Customer constructor.
@@ -53,6 +55,30 @@ class Customer
         return $this->lastName;
     }
 
+    /**
+     * @return Group
+     */
+    public function getGroup(): Group
+    {
+        return $this->group;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getFixedDiscount()
+    {
+        return $this->fixed_discount;
+    }
+
+    /**
+     * @return int
+     */
+    public function getVariableDiscount(): int
+    {
+        return $this->variable_discount;
+    }
+
     public function getMaxVariableDiscountOfGroups(): int
     {
 
@@ -68,7 +94,6 @@ class Customer
 
     public function getFixedDiscountOfGroups(): int
     {
-
         $group = $this->group;
         $sum = $group->getFixedDiscount();
         while($group->getGroup() !== null) {

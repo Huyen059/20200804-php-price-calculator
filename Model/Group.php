@@ -18,14 +18,13 @@ class Group
      * @param int $fixed_discount
      * @param int $variable_discount
      * @param string $name
+     * @param GroupLoader $groupLoader
      */
-    public function __construct(int $id, int $parent_id, int $fixed_discount, int $variable_discount, string $name)
+    public function __construct(int $id, int $parent_id, int $fixed_discount, int $variable_discount, string $name, GroupLoader $groupLoader)
     {
-//        $groupsLoader = new GroupLoader();
-//        $groups = $groupsLoader->getGroups();
-//        $this->group = ($parent_id !== 0) ? $groups[$parent_id] : null;
+        $groups = $groupLoader->getGroups();
+        $this->group = ($parent_id !== 0) ? $groups[$parent_id] : null;
         $this->id = $id;
-        $this->group = ($parent_id !== 0) ? getGroupInfo($parent_id) : null;
         $this->fixed_discount = $fixed_discount * 100;
         $this->variable_discount = $variable_discount;
         $this->name = $name;
@@ -37,6 +36,14 @@ class Group
     public function getGroup(): ?Group
     {
         return $this->group;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

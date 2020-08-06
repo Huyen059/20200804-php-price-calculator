@@ -21,11 +21,10 @@ class CustomerLoader extends DataLoader
         $handle = $pdo->prepare('SELECT * FROM customer');
         $handle->execute();
         $customers = $handle->fetchAll();
-//        $groupsLoader = new GroupLoader();
-//        $groups = $groupsLoader->getGroups();
+        $groupsLoader = new GroupLoader();
+        $groups = $groupsLoader->getGroups();
         foreach ($customers as $customer) {
-//            $group = $groups[$customer['group_id']];
-            $group = getGroupInfo((int)$customer['group_id']);
+            $group = $groups[$customer['group_id']];
             $this->customers[$customer['id']] = new Customer((int)$customer['id'], $customer['firstname'], $customer['lastname'], $group, (int)$customer['fixed_discount'], (int)$customer['variable_discount']);
         }
     }

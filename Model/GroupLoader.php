@@ -10,20 +10,20 @@ class GroupLoader extends DataLoader
     /**
      * @var Group[]
      */
-    public static array $groups;
+    private array $groups = [];
 
     /**
      * GroupLoader constructor.
      */
     public function __construct()
     {
-        if(empty(self::$groups)) {
+        if(empty($this->groups)) {
             $pdo = $this->openConnection();
             $handle = $pdo->prepare('SELECT * FROM customer_group');
             $handle->execute();
             $groups = $handle->fetchAll();
             foreach ($groups as $group) {
-                self::$groups[$group['id']] = new Group((int)$group['id'], (int)$group['parent_id'], (int)$group['fixed_discount'], (int)$group['variable_discount'], (string)$group['name']);
+                $this->groups[$group['id']] = new Group((int)$group['id'], (int)$group['parent_id'], (int)$group['fixed_discount'], (int)$group['variable_discount'], $group['name'], $this);
             }
         }
     }
@@ -33,7 +33,7 @@ class GroupLoader extends DataLoader
      */
     public function getGroups(): array
     {
-        return self::$groups;
+        return $this->groups;
     }
 
 }
