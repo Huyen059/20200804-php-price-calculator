@@ -10,6 +10,6 @@ class LoginController
     public function render(): void
     {
 
-        require 'View/login.php';
+        require __DIR__ . '/../View/login.php';
     }
 }

@@ -9,6 +9,7 @@ class Customer
 {
     private Group $group;
     private string $firstName, $lastName;
+    private int $id;
     private int $fixed_discount;
     private int $variable_discount;
 

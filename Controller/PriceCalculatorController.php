@@ -47,6 +47,6 @@ class PriceCalculatorController
             $message = "<h5 class='text-center bg-danger text-white p-3 font-weight-bold'>Your price: &euro;{$finalPriceToBeDisplay}</h5>";
         }
 
-        require 'View/price_calculator.php';
+        require __DIR__ . '/../View/price_calculator.php';
     }
 }
